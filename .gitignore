@@ -311,3 +311,4 @@ fabric.properties
 
 # OTHER
 .idea/
+settings_secrets.py
