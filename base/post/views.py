@@ -1,5 +1,6 @@
-from rest_framework import generics, permissions
+from rest_framework import generics, status
 from rest_framework.exceptions import ValidationError
+from rest_framework.response import Response
 
 from .models import Post, Like
 from .serializers import PostSerializer, LikeSerializer
@@ -11,7 +12,6 @@ class PostListCreate(generics.ListCreateAPIView):
     """
     queryset = Post.objects.all()
     serializer_class = PostSerializer
-    permission_classes = [permissions.IsAuthenticated]
 
     def perform_create(self, serializer):
         serializer.save(author=self.request.user)
@@ -23,7 +23,6 @@ class PostDetailRetrieve(generics.RetrieveAPIView):
     """
     queryset = Post.objects.all()
     serializer_class = PostSerializer
-    permission_classes = [permissions.IsAuthenticated]
 
 
 class LikePostCreateDestroy(generics.CreateAPIView):
@@ -31,7 +30,6 @@ class LikePostCreateDestroy(generics.CreateAPIView):
     API endpoint to like/unlike particular post.
     """
     serializer_class = LikeSerializer
-    permission_classes = [permissions.IsAuthenticated]
 
     def get_queryset(self):
         user = self.request.user
@@ -45,3 +43,10 @@ class LikePostCreateDestroy(generics.CreateAPIView):
         user = self.request.user
         post = Post.objects.get(pk=self.kwargs['pk'])
         serializer.save(user=user, post=post)
+
+    def delete(self, request, pk):
+        if self.get_queryset().exists():
+            self.get_queryset().delete()
+            return Response(status=status.HTTP_204_NO_CONTENT)
+        else:
+            raise ValidationError("You haven't liked this post.")
