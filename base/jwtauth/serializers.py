@@ -5,7 +5,7 @@ from secrets import compare_digest
 User = get_user_model()
 
 
-class UserCreateSerializer(serializers.ModelSerializer):
+class CreateUserSerializer(serializers.ModelSerializer):
     email = serializers.EmailField(required=True)
     password = serializers.CharField(write_only=True, required=True, style={'input_type': 'password'})
     password2 = serializers.CharField(write_only=True, style={'input_type': 'password'}, label='confirm password')

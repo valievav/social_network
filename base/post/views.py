@@ -1,4 +1,4 @@
-from rest_framework import generics, status
+from rest_framework import generics, status, mixins
 from rest_framework.exceptions import ValidationError
 from rest_framework.response import Response
 
@@ -25,7 +25,7 @@ class PostDetailRetrieve(generics.RetrieveAPIView):
     serializer_class = PostSerializer
 
 
-class LikePostCreateDestroy(generics.CreateAPIView):
+class LikePostCreateDestroy(generics.CreateAPIView, mixins.DestroyModelMixin):
     """
     API endpoint to like/unlike particular post.
     """
