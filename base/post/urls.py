@@ -5,5 +5,6 @@ from . import views
 urlpatterns = [
     path('posts/', views.PostListCreate.as_view(), name='post-list'),
     path('posts/<int:pk>/', views.PostDetailRetrieve.as_view(), name="post-detail"),
-    path('posts/<int:pk>/like/', views.LikePostCreateDestroy.as_view(), name="like")
+    path('posts/<int:pk>/like/', views.LikePostCreateDestroy.as_view(), name="like"),
+    path('analytics/', views.AnalyticsList.as_view(), name="analytics"),
 ]

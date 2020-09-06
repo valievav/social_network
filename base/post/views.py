@@ -1,4 +1,8 @@
-from rest_framework import generics, status, mixins
+from datetime import date
+
+from django.db.models import Count
+from django.db.models.functions import TruncDate
+from rest_framework import generics, status, mixins, permissions, views
 from rest_framework.exceptions import ValidationError
 from rest_framework.response import Response
 
@@ -8,7 +12,7 @@ from .serializers import PostSerializer, LikeSerializer
 
 class PostListCreate(generics.ListCreateAPIView):
     """
-    API endpoint to get all posts.
+    API endpoint to get all posts list.
     """
     queryset = Post.objects.all()
     serializer_class = PostSerializer
@@ -50,3 +54,27 @@ class LikePostCreateDestroy(generics.CreateAPIView, mixins.DestroyModelMixin):
             return Response(status=status.HTTP_204_NO_CONTENT)
         else:
             raise ValidationError("You haven't liked this post.")
+
+
+class AnalyticsList(views.APIView):
+    """
+    API endpoint for likes per day.
+    Accepted query params: 'date_from', 'date_to'.
+    Returned analytics for all available dates if params are not passed.
+    """
+    def analytics(self, request, *args, **kwargs):
+        start = self.request.query_params.get('date_from', None)
+        end = self.request.query_params.get('date_to',  date.today())  # use today as fallback
+
+        if not start:
+            filters = {'datetime__date__lte': end}
+        else:
+            filters = {'datetime__date__gte': start, 'datetime__date__lte': end}
+
+        queryset = Like.objects.filter(**filters).annotate(date=TruncDate('datetime')).values('date').\
+            annotate(count=Count('id')).order_by('-date')
+
+        return Response(data=queryset, status=status.HTTP_200_OK)
+
+    def get(self, request, *args, **kwargs):
+        return self.analytics(request, *args, **kwargs)

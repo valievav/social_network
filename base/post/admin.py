@@ -10,5 +10,5 @@ class PostAdmin(admin.ModelAdmin):
 
 @admin.register(Like)
 class LikeAdmin(admin.ModelAdmin):
-    list_display = ('id', 'post', 'user', 'date')
+    list_display = ('id', 'post', 'user', 'datetime')
     list_display_links = ('post',)
