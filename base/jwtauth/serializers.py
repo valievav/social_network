@@ -1,3 +1,5 @@
+from secrets import compare_digest
+
 from django.contrib.auth import get_user_model
 from rest_framework import serializers
 from secrets import compare_digest

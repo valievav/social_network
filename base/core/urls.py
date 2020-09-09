@@ -22,6 +22,6 @@ urlpatterns = [
 
     # AUTH
     path('auth/', include('rest_framework.urls')),  # browser auth
-    path('api/user/', include('jwtauth.urls')),  # jwt token endpoints
+    path('api/', include('jwtauth.urls')),  # jwt token endpoints
 
 ]
