@@ -51,7 +51,7 @@ class TestAutomatedBot(unittest.TestCase):
     def test_login_fail(self, mocked_post):
         mocked_post.return_value.status_code = 400
         result = self.bot.login()
-        self.assertEqual(result, None)
+        self.assertEqual(result, (None, None))
 
     @patch('automated_bot.auto_bot.requests.post')
     def test_post_success(self, mocked_post):

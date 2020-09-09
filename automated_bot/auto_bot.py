@@ -31,7 +31,7 @@ class AutomatedBot:
             logger.error(f'Issue during registration: {response.status_code, response.text}.')
             return False
 
-    def login(self) -> Optional[Tuple]:
+    def login(self) -> Tuple:
         """
         Login user.
         Returned access and refresh tokens.
@@ -43,7 +43,7 @@ class AutomatedBot:
             return response.json()['access'], response.json()['refresh']
         else:
             logger.critical(f'Issue during login: {response.status_code, response.text}.')
-            return None
+            return None, None
 
     def post(self, access_token: str, post_title: str, post_body: str) -> bool:
         """

@@ -42,7 +42,7 @@ INSTALLED_APPS = [
 
     # Local apps
     'post',
-    'jwtauth',
+    'jwtauth.apps.JwtauthConfig',
 
     # Other
     'rest_framework',
@@ -56,6 +56,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'core.middleware.UpdateLastActivityMiddleware',
 ]
 
 ROOT_URLCONF = 'core.urls'

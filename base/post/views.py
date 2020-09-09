@@ -2,7 +2,7 @@ from datetime import date
 
 from django.db.models import Count
 from django.db.models.functions import TruncDate
-from rest_framework import generics, status, mixins, permissions, views
+from rest_framework import generics, status, mixins, views
 from rest_framework.exceptions import ValidationError
 from rest_framework.response import Response
 
