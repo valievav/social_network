@@ -36,7 +36,11 @@ class RegisterUserSerializer(serializers.ModelSerializer):
         return user
 
 
-class ProfileSerializer(serializers.ModelSerializer):  # TODO placeholder - to replace
+class ProfileSerializer(serializers.ModelSerializer):
+    user_id = serializers.ReadOnlyField(source='user.id')
+    username = serializers.ReadOnlyField(source='user.username')
+    last_login = serializers.ReadOnlyField(source='user.last_login')
+
     class Meta:
         model = Profile
-        fields = ('__all__')
+        fields = ('user_id', 'username', 'last_login', 'last_activity')

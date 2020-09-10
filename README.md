@@ -1,4 +1,4 @@
-###Project:
+### Project:
 REST API for social network & automated bot to make calls to the API
 
 ---
@@ -17,7 +17,7 @@ REST API for social network & automated bot to make calls to the API
 - analytics about how many likes was made (analytics aggregated by day). -> **/api/likes-analytics/** for all dates or **/api/likes-analytics/?date_from=2020-09-02&date_to=2020-09-15**
 - user activity an endpoint which shows when user logged in last time and when was made last
 request to the service -> **/api/users/activity/**
-- JWT token authentication
+- JWT token authentication (**/api/user/token/** & **/api/user/token/refresh/**)
 
 ---
 ### Automated bot to call social network's API

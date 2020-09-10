@@ -16,5 +16,5 @@ class RegisterUserView(CreateAPIView):
 
 
 class UserActivityList(ListAPIView):
-    queryset = Profile.objects.all()  # TODO placeholder - to replace
+    queryset = Profile.objects.all()
     serializer_class = ProfileSerializer
