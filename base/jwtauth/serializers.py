@@ -9,7 +9,7 @@ from .models import Profile
 User = get_user_model()
 
 
-class CreateUserSerializer(serializers.ModelSerializer):
+class RegisterUserSerializer(serializers.ModelSerializer):
     email = serializers.EmailField(required=True)
     password = serializers.CharField(write_only=True, required=True, style={'input_type': 'password'})
     password2 = serializers.CharField(write_only=True, style={'input_type': 'password'}, label='confirm password')
@@ -17,7 +17,6 @@ class CreateUserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
         fields = ['username', 'email', 'password', 'password2']
-        extra_kwargs = {'password': {'write_only': True}}
 
     def create(self, validated_data):
         username = validated_data['username']
@@ -35,3 +34,9 @@ class CreateUserSerializer(serializers.ModelSerializer):
         user.set_password(password)
         user.save()
         return user
+
+
+class ProfileSerializer(serializers.ModelSerializer):  # TODO placeholder - to replace
+    class Meta:
+        model = Profile
+        fields = ('__all__')
