@@ -29,7 +29,7 @@ def bot_runner(number_of_users: int, max_posts_per_user: int, max_likes_per_user
         bot.register()
 
         access_token, refresh_token = bot.login()
-        if not (access_token, refresh_token):
+        if not all((access_token, refresh_token)):
             return
 
         # each user creates random number of posts
